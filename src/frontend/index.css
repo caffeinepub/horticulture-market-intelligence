@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Fonts ─────────────────────────────────────────── */
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 1rem;
+
+    /* ─── Core Palette: Earthy Harvest ───────────────────
+       Deep forest green + warm saffron + golden amber
+       AA+ contrast on all key pairings
+    ──────────────────────────────────────────────────── */
+    --background:   0.97 0.012 85;        /* warm cream */
+    --foreground:   0.18 0.04 55;         /* deep earthy brown */
+    --card:         0.99 0.006 90;        /* near-white warm */
+    --card-foreground: 0.18 0.04 55;
+    --popover:      0.99 0.006 90;
+    --popover-foreground: 0.18 0.04 55;
+
+    /* Primary: deep forest green */
+    --primary:      0.34 0.12 155;
+    --primary-foreground: 0.98 0.005 90;
+
+    /* Secondary: warm amber/saffron */
+    --secondary:    0.88 0.13 75;
+    --secondary-foreground: 0.18 0.04 55;
+
+    /* Muted: soft clay */
+    --muted:        0.93 0.02 75;
+    --muted-foreground: 0.48 0.04 60;
+
+    /* Accent: saffron orange */
+    --accent:       0.72 0.17 58;
+    --accent-foreground: 0.99 0.005 90;
+
+    /* Semantic */
+    --destructive:  0.55 0.22 27;
+    --destructive-foreground: 0.98 0.005 90;
+    --border:       0.86 0.025 75;
+    --input:        0.90 0.018 80;
+    --ring:         0.34 0.12 155;
+
+    /* Chart / data colors */
+    --chart-1: 0.65 0.19 155;   /* green up */
+    --chart-2: 0.60 0.20 27;    /* red down */
+    --chart-3: 0.78 0.16 75;    /* amber stable */
+    --chart-4: 0.55 0.16 245;   /* blue info */
+    --chart-5: 0.68 0.18 48;    /* orange warning */
+
+    /* Sidebar */
+    --sidebar:                0.22 0.06 155;
+    --sidebar-foreground:     0.96 0.01 90;
+    --sidebar-primary:        0.72 0.17 58;
+    --sidebar-primary-foreground: 0.18 0.04 55;
+    --sidebar-accent:         0.30 0.07 155;
+    --sidebar-accent-foreground: 0.96 0.01 90;
+    --sidebar-border:         0.28 0.07 155;
+    --sidebar-ring:           0.72 0.17 58;
+
+    /* App-specific custom tokens */
+    --crop-up:       0.55 0.18 155;      /* green for price rising */
+    --crop-down:     0.55 0.22 27;       /* red for price falling */
+    --crop-stable:   0.60 0.14 75;       /* amber for stable */
+    --severity-critical: 0.55 0.22 27;
+    --severity-warning:  0.65 0.18 55;
+    --severity-info:     0.50 0.16 245;
+    --severity-surge:    0.50 0.18 155;
+
+    --nav-bg:        0.22 0.06 155;
+    --nav-active:    0.72 0.17 58;
+    --nav-text:      0.90 0.02 90;
+  }
+
+  * {
+    @apply border-border;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    min-height: 100dvh;
+    overscroll-behavior: contain;
+  }
+
+  /* Smooth scrolling for inner panels */
+  .scroll-area-inner {
+    overscroll-behavior: contain;
+  }
+
+  /* Large tap targets for accessibility */
+  button, [role="button"] {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Focus rings */
+  :focus-visible {
+    outline: 3px solid oklch(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Price trend colors */
+  .text-crop-up    { color: oklch(var(--crop-up)); }
+  .text-crop-down  { color: oklch(var(--crop-down)); }
+  .text-crop-stable { color: oklch(var(--crop-stable)); }
+  .bg-crop-up      { background-color: oklch(var(--crop-up) / 0.12); }
+  .bg-crop-down    { background-color: oklch(var(--crop-down) / 0.12); }
+  .bg-crop-stable  { background-color: oklch(var(--crop-stable) / 0.12); }
+  .border-crop-up  { border-color: oklch(var(--crop-up) / 0.4); }
+  .border-crop-down { border-color: oklch(var(--crop-down) / 0.4); }
+  .border-crop-stable { border-color: oklch(var(--crop-stable) / 0.4); }
+
+  /* Nav */
+  .bg-nav          { background-color: oklch(var(--nav-bg)); }
+  .bg-nav-active   { background-color: oklch(var(--nav-active)); }
+  .text-nav        { color: oklch(var(--nav-text)); }
+
+  /* Severity */
+  .bg-severity-critical { background-color: oklch(var(--severity-critical) / 0.12); }
+  .bg-severity-warning  { background-color: oklch(var(--severity-warning) / 0.12); }
+  .bg-severity-info     { background-color: oklch(var(--severity-info) / 0.12); }
+  .bg-severity-surge    { background-color: oklch(var(--severity-surge) / 0.12); }
+  .text-severity-critical { color: oklch(var(--severity-critical)); }
+  .text-severity-warning  { color: oklch(var(--severity-warning)); }
+  .text-severity-info     { color: oklch(var(--severity-info)); }
+  .text-severity-surge    { color: oklch(var(--severity-surge)); }
+  .border-severity-critical { border-color: oklch(var(--severity-critical) / 0.5); }
+  .border-severity-warning  { border-color: oklch(var(--severity-warning) / 0.5); }
+  .border-severity-info     { border-color: oklch(var(--severity-info) / 0.5); }
+  .border-severity-surge    { border-color: oklch(var(--severity-surge) / 0.5); }
+
+  /* Hero gradient overlay */
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      oklch(var(--primary) / 0.7) 0%,
+      oklch(var(--primary) / 0.4) 60%,
+      oklch(var(--background) / 0) 100%
+    );
+  }
+
+  /* Grain texture for depth */
+  .grain-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* IVR button style */
+  .ivr-btn {
+    @apply flex flex-col items-center justify-center gap-2 rounded-2xl font-display font-bold text-sm leading-tight;
+    min-height: 100px;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .ivr-btn:active {
+    transform: scale(0.95);
+  }
+}
